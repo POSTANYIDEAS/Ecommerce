@@ -1,0 +1,47 @@
+/* frontend/src/components/css/ProductCard.css */
+.product-card {
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateZ(20px) scale(1.05);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: translateZ(30px);
+}
+
+.product-name {
+  margin-top: 12px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.product-price {
+  color: #16a34a;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.product-description {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-top: 4px;
+}

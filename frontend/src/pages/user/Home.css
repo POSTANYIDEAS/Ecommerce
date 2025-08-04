@@ -1,0 +1,461 @@
+/* Home.css */
+
+/* Reset some common elements */
+.home-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  background-color: #fafafa;
+  line-height: 1.5;
+  padding: 0 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Visually hidden class for accessibility */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px; 
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* Banner Section */
+.home-banner {
+  background: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
+  color: #fff;
+  padding: 4rem 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.home-banner .banner-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.home-banner .banner-content p {
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner-button {
+  background-color: #004080;
+  color: #fff;
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 64, 128, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.banner-button:hover,
+.banner-button:focus {
+  background-color: #00264d;
+  box-shadow: 0 6px 12px rgba(0, 38, 77, 0.5);
+  outline: none;
+}
+
+/* Categories Section */
+.home-categories {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.home-categories h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.categories-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  max-width: 100%;
+  justify-items: center;
+}
+
+.category-card {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
+  text-decoration: none;
+  color: inherit;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-card:hover,
+.category-card:focus {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgb(0 64 128 / 0.3);
+  outline: none;
+}
+
+.category-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.category-info {
+  padding: 1rem;
+  background-color: #f0f4f8;
+}
+
+.category-info h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Featured Products Section Header */
+.home-products-section {
+  margin-bottom: 3rem;
+}
+
+.home-products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.home-products-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.home-see-more {
+  font-size: 0.875rem;
+  color: #004080;
+  border: 1px solid #004080;
+  padding: 0.3rem 0.75rem;
+  border-radius: 15px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.home-see-more:hover,
+.home-see-more:focus {
+  background-color: #004080;
+  color: white;
+  outline: none;
+}
+
+/* Error messages */
+.error-message {
+  color: #d93025;
+  font-weight: 600;
+  margin: 1rem 0;
+}
+
+/* Features Section */
+.home-features {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.home-features h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.features-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature-item {
+  background-color: #ffffff;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 15px rgb(0 64 128 / 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.feature-item:hover,
+.feature-item:focus-within {
+  box-shadow: 0 6px 25px rgb(0 64 128 / 0.25);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+  color: #004080;
+}
+
+.feature-item h3 {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.feature-item p {
+  font-size: 1rem;
+  color: #444;
+}
+
+/* 3D Cards (Why Choose Us & Benefits Sections) */
+.three-d-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.12),
+    0 1px 2px rgba(0,0,0,0.24);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover,
+.card:focus-within {
+  box-shadow:
+    0 10px 20px rgba(0,0,0,0.19),
+    0 6px 6px rgba(0,0,0,0.23);
+}
+
+.card h3 {
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  font-size: 1.375rem;
+  color: #004080;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+}
+
+/* About Us Section */
+.about-us {
+  margin-bottom: 3rem;
+  background-color: #eef4fb;
+  padding: 2rem 1rem;
+  border-radius: 12px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-us-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.about-us-image {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgb(0 64 128 / 0.2);
+}
+
+.about-us-text h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #004080;
+  text-align: center;
+}
+
+.about-us-text p {
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  max-width: 600px;
+  text-align: center;
+}
+
+.about-us-button {
+  background-color: #004080;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,64,128,0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-us-button:hover,
+.about-us-button:focus {
+  background-color: #003366;
+  box-shadow: 0 6px 12px rgba(0,51,102,0.5);
+  outline: none;
+}
+
+/* Newsletter Signup */
+.home-newsletter {
+  background-color: #004080;
+  color: white;
+  text-align: center;
+  border-radius: 12px;
+  padding: 2.5rem 1rem;
+  max-width: 700px;
+  margin: 0 auto 4rem;
+  box-shadow: 0 5px 25px rgba(0, 64, 128, 0.4);
+}
+
+.home-newsletter h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.home-newsletter p {
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.newsletter-form {
+  display: flex;
+  max-width: 420px;
+  margin: 0 auto;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.newsletter-form input[type="email"] {
+  flex-grow: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  max-width: 100%;
+}
+
+.newsletter-form input[type="email"]:focus {
+  box-shadow: 0 0 6px #ffff99;
+}
+
+.newsletter-form button {
+  padding: 0.75rem 1.75rem;
+  border-radius: 25px;
+  border: none;
+  background-color: #ffe600;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.newsletter-form button:hover,
+.newsletter-form button:focus {
+  background-color: #ccae00;
+  outline: none;
+}
+
+/* Responsive Breakpoints */
+
+/* Tablet */
+@media (min-width: 600px) {
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-features .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .three-d-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-us-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .about-us-text {
+    max-width: 480px;
+    text-align: left;
+  }
+
+  .about-us-text h2,
+  .about-us-text p {
+    text-align: left;
+  }
+
+  .banner-button {
+    font-size: 1.125rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 900px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .home-features .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .three-d-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .newsletter-form {
+    flex-wrap: nowrap;
+  }
+
+  .home-banner {
+    padding: 6rem 2rem;
+  }
+
+  .home-banner .banner-content h1 {
+    font-size: 3rem;
+  }
+
+  .home-banner .banner-content p {
+    font-size: 1.25rem;
+    max-width: 700px;
+  }
+
+  .about-us-image {
+    max-width: 600px;
+  }
+
+  .about-us-text {
+    max-width: 600px;
+  }
+}
