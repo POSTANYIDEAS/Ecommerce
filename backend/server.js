@@ -6,6 +6,10 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+// ✅ Root route for health check
+app.get('/', (req, res) => {
+  res.send('✅ Backend is running successfully on Render!');
+});
 
 // ✅ Auth Routes (register, login)
 const authRoutes = require('./routes/auth');
