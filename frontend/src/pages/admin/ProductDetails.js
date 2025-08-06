@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
-import { Link, useLocation } from 'react-router-dom';
+import AdminSidebar from '../../components/AdminSidebar';
 import 'react-quill/dist/quill.snow.css';
 import './ProductDetails.css';
 
@@ -14,17 +14,40 @@ function ProductDetails() {
   const [images, setImages] = useState([]);
   const [details, setDetails] = useState([]);
   const [editingDetail, setEditingDetail] = useState(null);
-
-  const location = useLocation();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products').then(res => setProducts(res.data));
-    fetchDetails();
+    loadData();
   }, []);
 
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Load products
+      const productsRes = await axios.get('http://localhost:5000/api/products');
+      setProducts(productsRes.data);
+
+      // Load product details
+      await fetchDetails();
+    } catch (err) {
+      console.error('Error loading data:', err);
+      setError('Failed to load data. Please check if the server is running.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchDetails = async () => {
-    const res = await axios.get('http://localhost:5000/api/product-details');
-    setDetails(res.data);
+    try {
+      const res = await axios.get('http://localhost:5000/api/product-details');
+      setDetails(res.data);
+    } catch (err) {
+      console.error('Error fetching product details:', err);
+      throw err;
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -67,41 +90,31 @@ function ProductDetails() {
     fetchDetails();
   };
 
-  const navLinks = [
-    { to: "/admin/dashboard", label: "🏠 Dashboard" },
-    { to: "/admin/products", label: "📦 Products" },
-    { to: "/admin/product-details", label: "📝 Product Details" },
-    { to: "/admin/orders", label: "🛒 Orders" },
-    { to: "/admin/customers", label: "👥 Customers" },
-    { to: "/admin/reports", label: "📈 Reports" },
-    { to: "/admin/settings", label: "⚙️ Settings" },
-  ];
-
   return (
     <div className="admin-dashboard">
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <h1 className="logo">e-Shop Admin</h1>
-        </div>
-        <nav className="sidebar-nav">
-          {navLinks.map(({ to, label }) => (
-            <Link
-              key={to}
-              to={to}
-              className={`nav-link ${location.pathname === to ? 'active' : ''}`}
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
+      <AdminSidebar />
 
       {/* Main Content */}
       <main className="main-content">
         <h1 className="page-title">Product Details</h1>
 
-        <select
+        {loading && (
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Loading product details...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="error-container">
+            <p className="error-message">{error}</p>
+            <button onClick={loadData} className="retry-btn">Retry</button>
+          </div>
+        )}
+
+        {!loading && !error && (
+          <>
+            <select
           value={selectedProduct}
           onChange={(e) => setSelectedProduct(e.target.value)}
           className="input-select"
@@ -181,6 +194,8 @@ function ProductDetails() {
             </article>
           ))}
         </section>
+          </>
+        )}
       </main>
     </div>
   );

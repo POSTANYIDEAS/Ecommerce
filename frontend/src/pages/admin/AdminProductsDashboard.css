@@ -71,11 +71,14 @@ body {
 /* Main content */
 .main-content {
   flex-grow: 1;
-  background: white;
+  margin-left: 260px;
+  background: var(--admin-background, white);
+  color: var(--admin-text, #1f2937);
   padding: 2rem 2.5rem;
   box-sizing: border-box;
   overflow-y: auto;
   min-width: 0;
+  min-height: 100vh;
 }
 
 .page-title {
@@ -87,7 +90,7 @@ body {
 }
 
 .btn-toggle-form {
-  background-color: #14b8a6;
+  background-color: var(--admin-primary, #14b8a6);
   color: white;
   font-weight: 700;
   border: none;
@@ -100,7 +103,7 @@ body {
 
 .btn-toggle-form:hover,
 .btn-toggle-form:focus {
-  background-color: #0e9187;
+  background-color: var(--admin-secondary, #0e9187);
   outline: none;
 }
 
@@ -151,14 +154,14 @@ body {
 }
 
 .btn-submit {
-  background-color: #14b8a6;
+  background-color: var(--admin-primary, #14b8a6);
   color: white;
   flex-grow: 1;
 }
 
 .btn-submit:hover,
 .btn-submit:focus {
-  background-color: #0e9187;
+  background-color: var(--admin-secondary, #0e9187);
   outline: none;
 }
 
@@ -212,6 +215,22 @@ body {
   margin: 0 0 0.5rem;
 }
 
+.product-stock {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: #374151;
+}
+
+.in-stock {
+  color: #059669;
+}
+
+.low-stock {
+  color: #dc2626;
+  font-weight: 700;
+}
+
 .product-desc {
   font-size: 0.9rem;
   color: #4b5563;
@@ -226,7 +245,7 @@ body {
 }
 
 .btn-edit {
-  background-color: #fbbf24; /* yellow-400 */
+  background-color: var(--admin-accent, #fbbf24); /* yellow-400 */
   color: #78350f;
   border: none;
   padding: 0.4rem 0.9rem;
@@ -239,7 +258,7 @@ body {
 
 .btn-edit:hover,
 .btn-edit:focus {
-  background-color: #f59e0b; /* yellow-500 */
+  background-color: var(--admin-accent, #f59e0b); /* yellow-500 */
   outline: none;
 }
 
@@ -272,17 +291,41 @@ body {
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 0;
+    padding: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .product-form {
     grid-template-columns: 1fr;
   }
+
+  .main-content {
+    padding: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .sidebar {
-    display: none;
-  }
   .main-content {
-    padding: 1.5rem 1rem;
+    padding: 1rem 0.5rem;
   }
+}
+
+/* Category Styles */
+.product-category {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.category-badge {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.8rem;
+  font-weight: 500;
 }

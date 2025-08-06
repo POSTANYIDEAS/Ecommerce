@@ -1,0 +1,393 @@
+/* Global Theme Variables */
+:root {
+  /* Admin Panel Variables */
+  --admin-primary: #3b82f6;
+  --admin-secondary: #1e40af;
+  --admin-accent: #fbbf24;
+  --admin-background: #f8fafc;
+  --admin-sidebar: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 100%);
+  --admin-text: #1f2937;
+
+  /* User Panel Variables */
+  --user-primary: #3b82f6;
+  --user-secondary: #1d4ed8;
+  --user-accent: #10b981;
+  --user-background: #ffffff;
+  --user-navbar: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --user-text: #1f2937;
+}
+
+/* Global Theme Application */
+
+/* Admin Panel Theme Application */
+.admin-dashboard .main-content {
+  background: var(--admin-background) !important;
+  color: var(--admin-text) !important;
+}
+
+.admin-dashboard .btn-primary,
+.admin-dashboard .btn-submit,
+.admin-dashboard .btn-toggle-form {
+  background: var(--admin-primary) !important;
+}
+
+.admin-dashboard .btn-primary:hover,
+.admin-dashboard .btn-submit:hover,
+.admin-dashboard .btn-toggle-form:hover {
+  background: var(--admin-secondary) !important;
+}
+
+.admin-dashboard .btn-edit {
+  background: var(--admin-accent) !important;
+}
+
+.admin-dashboard .btn-edit:hover {
+  background: var(--admin-accent) !important;
+  filter: brightness(0.9);
+}
+
+/* User Panel Theme Application */
+body {
+  background: var(--user-background) !important;
+  color: var(--user-text) !important;
+}
+
+/* Home Page Theme Application */
+.home-container,
+.about-page,
+.contact-page {
+  background: var(--user-background) !important;
+  color: var(--user-text) !important;
+}
+
+.hero-btn.primary,
+.cta-button.primary,
+.submit-button {
+  background: var(--user-primary) !important;
+  border-color: var(--user-primary) !important;
+}
+
+.hero-btn.primary:hover,
+.cta-button.primary:hover,
+.submit-button:hover:not(:disabled) {
+  background: var(--user-secondary) !important;
+}
+
+.hero-btn.secondary,
+.cta-button.secondary {
+  color: var(--user-primary) !important;
+  border-color: var(--user-primary) !important;
+}
+
+.hero-btn.secondary:hover,
+.cta-button.secondary:hover {
+  background: var(--user-primary) !important;
+}
+
+.brand-highlight,
+.hero-stats .stat-number,
+.section-header h2,
+.about-section h2,
+.values-section h2,
+.team-section h2,
+.cta-section h2,
+.contact-form-section h2,
+.contact-info-section h2,
+.faq-section h2 {
+  color: var(--user-primary) !important;
+}
+
+.feature-icon,
+.contact-icon,
+.social-link {
+  background: var(--user-primary) !important;
+}
+
+.feature-card.premium::before {
+  background: linear-gradient(135deg, var(--user-primary), var(--user-secondary)) !important;
+}
+
+/* Navbar */
+.navbar {
+  background: var(--user-navbar) !important;
+}
+
+/* User page backgrounds */
+.home-container,
+.products-page,
+.product-details-container,
+.about-container,
+.contact-container {
+  background: var(--user-background) !important;
+  color: var(--user-text) !important;
+}
+
+/* Buttons */
+.btn-primary,
+.product-card .btn-primary,
+.category-btn.active {
+  background: var(--user-primary) !important;
+  border-color: var(--user-primary) !important;
+}
+
+.btn-primary:hover,
+.product-card .btn-primary:hover {
+  background: var(--user-secondary) !important;
+  border-color: var(--user-secondary) !important;
+}
+
+/* Category buttons */
+.category-btn:hover {
+  border-color: var(--user-primary) !important;
+  color: var(--user-primary) !important;
+}
+
+/* Quick action buttons */
+.quick-action-btn:hover {
+  background: var(--user-primary) !important;
+}
+
+.quick-action-btn.cart-btn:hover {
+  background: var(--user-accent) !important;
+}
+
+/* Form elements */
+.category-select:focus,
+.input-text:focus {
+  border-color: var(--user-primary) !important;
+}
+
+/* Product cards */
+.product-card:hover {
+  border-color: var(--user-primary);
+}
+
+/* Home page elements */
+.hero-section {
+  background: linear-gradient(135deg, var(--user-primary), var(--user-secondary));
+}
+
+.category-card:hover {
+  border-color: var(--user-primary);
+}
+
+/* Navigation links */
+.nav-link:hover {
+  color: var(--user-accent) !important;
+}
+
+/* Cart and user interface elements */
+.cart-item {
+  border-color: var(--user-primary);
+}
+
+.checkout-btn {
+  background: var(--user-primary) !important;
+}
+
+.checkout-btn:hover {
+  background: var(--user-secondary) !important;
+}
+
+/* Reports page theme application */
+.reports-header h1 {
+  color: var(--admin-text);
+}
+
+.download-btn {
+  background: var(--admin-accent) !important;
+}
+
+.download-btn:hover {
+  background: var(--admin-accent) !important;
+  filter: brightness(0.9);
+}
+
+.summary-card.revenue {
+  border-left-color: var(--admin-accent) !important;
+}
+
+.summary-card.orders {
+  border-left-color: var(--admin-primary) !important;
+}
+
+.summary-card.users {
+  border-left-color: var(--admin-secondary) !important;
+}
+
+/* Settings page theme application */
+.settings-header h1 {
+  color: var(--admin-text);
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+  color: var(--admin-primary) !important;
+  border-bottom-color: var(--admin-primary) !important;
+}
+
+.theme-card.selected {
+  border-color: var(--admin-primary) !important;
+}
+
+.selected-badge {
+  background: var(--admin-accent) !important;
+}
+
+/* Orders page theme application */
+.orders-header h1 {
+  color: var(--admin-text);
+}
+
+.stat-card {
+  border-left-color: var(--admin-primary);
+}
+
+.order-status.pending {
+  background: var(--admin-accent);
+}
+
+.order-status.completed {
+  background: var(--admin-primary);
+}
+
+/* Categories page theme application */
+.categories-grid .category-card:hover {
+  border-color: var(--admin-primary);
+}
+
+/* Product Details page theme application */
+.product-details-container {
+  background: var(--user-background);
+  color: var(--user-text);
+}
+
+.add-to-cart-btn {
+  background: var(--user-primary) !important;
+}
+
+.add-to-cart-btn:hover {
+  background: var(--user-secondary) !important;
+}
+
+/* Responsive theme adjustments */
+@media (max-width: 768px) {
+  .mobile-menu {
+    background: var(--user-navbar);
+  }
+  
+  .mobile-category-item {
+    color: var(--user-accent);
+  }
+}
+
+/* Animation and transition enhancements */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Focus states */
+button:focus,
+input:focus,
+select:focus {
+  outline: 2px solid var(--user-primary);
+  outline-offset: 2px;
+}
+
+/* Additional User Panel Theme Applications */
+.stats-section {
+  background: linear-gradient(135deg, var(--user-primary), var(--user-secondary)) !important;
+}
+
+.mission-card:hover,
+.vision-card:hover,
+.feature-card:hover,
+.testimonial-card:hover,
+.value-item:hover,
+.team-member:hover,
+.faq-item:hover {
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15) !important;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--user-primary) !important;
+}
+
+.success-message {
+  border-left-color: var(--user-accent) !important;
+}
+
+.value-icon {
+  color: var(--user-primary) !important;
+}
+
+.feature-benefits li::before {
+  color: var(--user-accent) !important;
+}
+
+/* Newsletter and Footer Theme */
+.footer {
+  background: var(--user-navbar) !important;
+}
+
+.newsletter-btn {
+  background: var(--user-accent) !important;
+  color: var(--user-text) !important;
+}
+
+.newsletter-btn:hover {
+  background: var(--user-primary) !important;
+  color: white !important;
+}
+
+/* Product Cards and Shopping Elements */
+.product-card:hover {
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15) !important;
+}
+
+.add-to-cart-btn,
+.btn-primary {
+  background: var(--user-primary) !important;
+}
+
+.add-to-cart-btn:hover,
+.btn-primary:hover {
+  background: var(--user-secondary) !important;
+}
+
+.admin-dashboard button:focus,
+.admin-dashboard input:focus,
+.admin-dashboard select:focus {
+  outline: 2px solid var(--admin-primary);
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.loading-spinner {
+  border-top-color: var(--admin-primary);
+}
+
+/* Success and error states */
+.success {
+  background: var(--admin-accent);
+}
+
+.error {
+  background: #ef4444;
+}
+
+/* Chart colors (for reports) */
+.recharts-default-tooltip {
+  background: var(--admin-background) !important;
+  border-color: var(--admin-primary) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar-thumb {
+  background: var(--admin-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--admin-secondary);
+}

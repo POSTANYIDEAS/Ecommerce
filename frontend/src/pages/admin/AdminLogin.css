@@ -105,6 +105,39 @@
   outline: none;
 }
 
+/* Error message styling */
+.error-message {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid #fecaca;
+}
+
+/* Credentials info styling */
+.credentials-info {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f0f9ff;
+  border-radius: 0.5rem;
+  border: 1px solid #bae6fd;
+  text-align: center;
+}
+
+.credentials-info p {
+  margin: 0.25rem 0;
+  color: #0c4a6e;
+  font-size: 0.9rem;
+}
+
+.credentials-info p:first-child {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
 /* Responsive adjustments */
 @media (max-width: 480px) {
   .login-form {
@@ -119,5 +152,10 @@
   .form-group input,
   .btn-login {
     font-size: 0.95rem;
+  }
+
+  .credentials-info {
+    margin-top: 1rem;
+    padding: 0.75rem;
   }
 }

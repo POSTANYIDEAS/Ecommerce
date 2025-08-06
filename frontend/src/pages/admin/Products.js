@@ -1,19 +1,20 @@
 // ProductsDashboard.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import AdminSidebar from "../../components/AdminSidebar";
 import "./AdminProductsDashboard.css";
 
 export default function ProductsDashboard() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [stockQuantity, setStockQuantity] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [image, setImage] = useState(null);
   const [editingProduct, setEditingProduct] = useState(null);
-
-  const location = useLocation();
 
   const fetchProducts = async () => {
     try {
@@ -24,8 +25,18 @@ export default function ProductsDashboard() {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/categories");
+      setCategories(res.data);
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -35,6 +46,8 @@ export default function ProductsDashboard() {
       formData.append("name", name);
       formData.append("price", price);
       formData.append("description", description);
+      formData.append("stock_quantity", stockQuantity || "100");
+      formData.append("category_id", categoryId || "");
       if (image) formData.append("image", image);
 
       if (editingProduct) {
@@ -56,6 +69,8 @@ export default function ProductsDashboard() {
     setName("");
     setPrice("");
     setDescription("");
+    setStockQuantity("");
+    setCategoryId("");
     setImage(null);
     setEditingProduct(null);
     setShowForm(false);
@@ -66,6 +81,8 @@ export default function ProductsDashboard() {
     setName(product.name);
     setPrice(product.price);
     setDescription(product.description);
+    setStockQuantity(product.stock_quantity || "");
+    setCategoryId(product.category_id || "");
     setShowForm(true);
   };
 
@@ -78,35 +95,9 @@ export default function ProductsDashboard() {
     }
   };
 
-  const links = [
-    { to: "/admin/dashboard", text: "🏠 Dashboard" },
-    { to: "/admin/products", text: "📦 Products" },
-    { to: "/admin/orders", text: "🛒 Orders" },
-    { to: "/admin/customers", text: "👥 Customers" },
-    { to: "/admin/reports", text: "📈 Reports" },
-    { to: "/admin/settings", text: "⚙️ Settings" },
-  ];
-
   return (
     <div className="admin-dashboard">
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <h1 className="logo">e-Shop Admin</h1>
-        </div>
-        <nav className="sidebar-nav">
-          {links.map(({ to, text }) => (
-            <Link
-              key={to}
-              to={to}
-              className={`nav-link ${
-                location.pathname === to ? "active" : ""
-              }`}
-            >
-              {text}
-            </Link>
-          ))}
-        </nav>
-      </aside>
+      <AdminSidebar />
 
       <main className="main-content">
         <h1 className="page-title">Products</h1>
@@ -145,6 +136,26 @@ export default function ProductsDashboard() {
               className="input-text textarea"
             ></textarea>
             <input
+              type="number"
+              placeholder="Stock Quantity"
+              value={stockQuantity}
+              onChange={(e) => setStockQuantity(e.target.value)}
+              className="input-text"
+              min="0"
+            />
+            <select
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              className="input-text"
+            >
+              <option value="">Select Category (Optional)</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <input
               type="file"
               onChange={(e) => setImage(e.target.files[0])}
               className="input-text"
@@ -181,6 +192,16 @@ export default function ProductsDashboard() {
               )}
               <h2 className="product-name">{p.name}</h2>
               <p className="product-price">₹{p.price}</p>
+              {p.category_name && (
+                <p className="product-category">
+                  Category: <span className="category-badge">{p.category_name}</span>
+                </p>
+              )}
+              <p className="product-stock">
+                Stock: <span className={p.stock_quantity < 10 ? "low-stock" : "in-stock"}>
+                  {p.stock_quantity || 0} units
+                </span>
+              </p>
               <p className="product-desc">{p.description}</p>
               <div className="product-actions">
                 <button

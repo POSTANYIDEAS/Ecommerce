@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./AdminDashboard.css";
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
+import AdminSidebar from "../../components/AdminSidebar";
+import "./AdminProductsDashboard.css";
 
-export default function AdminDashboard() {
+export default function ProductsDashboard() {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [stockQuantity, setStockQuantity] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [image, setImage] = useState(null);
+  const [editingProduct, setEditingProduct] = useState(null);
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -46,30 +57,8 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="dashboard">
-      {/* Sidebar */}
-      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-        <div className="sidebar-header">
-          <h1 className="logo">e-Shop Admin</h1>
-          <button
-            className="sidebar-toggle"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label="Toggle sidebar"
-          >
-            ☰
-          </button>
-        </div>
-        <nav className="sidebar-nav">
-          <a className="nav-link active" href="#dashboard">🏠 Dashboard</a>
-          <a className="nav-link"><Link to="/admin/products">📦 Products</Link></a>
-          <Link className="nav-link" to="/admin/product-details">📝 Product Details</Link>
-          <a className="nav-link" href="#orders">🛒 Orders</a>
-          <a className="nav-link" href="#customers">👥 Customers</a>
-          <a className="nav-link" href="#reports">📈 Reports</a>
-          <a className="nav-link" href="#settings">⚙️ Settings</a>
-        </nav>
-      </aside>
-
+    <div className="admin-dashboard">
+      <AdminSidebar />
       {/* Main content */}
       <div className="main">
         <header className="header">

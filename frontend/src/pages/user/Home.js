@@ -6,33 +6,76 @@ import './Home.css';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate(); // For programmatic navigation
 
   useEffect(() => {
-    // Fetch just 4 products for home preview
-    axios.get('http://localhost:5000/api/products?limit=4')
-      .then(res => {
-        setProducts(res.data);
+    // Fetch products and categories
+    const fetchData = async () => {
+      try {
+        const [productsRes, categoriesRes] = await Promise.all([
+          axios.get('http://localhost:5000/api/products'),
+          axios.get('http://localhost:5000/api/categories')
+        ]);
+
+        // Take only first 4 products for home preview
+        setProducts(productsRes.data.slice(0, 4));
+        setCategories(categoriesRes.data);
         setLoading(false);
-      })
-      .catch(err => {
+      } catch (err) {
         console.error(err);
-        setError('Failed to load products');
+        setError('Failed to load data');
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
     <main className="home-container">
 
-      {/* Banner Section */}
-      <section className="home-banner" aria-label="Promotional banner">
-        <div className="banner-content">
-          <h1>Discover Amazing Deals<br />Every Day</h1>
-          <p>Shop from the best products across all categories.</p>
-          <Link to="/products" className="banner-button" aria-label="Shop now">Shop Now</Link>
+      {/* Hero Banner Section - Redesigned */}
+      <section className="hero-banner" aria-label="Welcome to e-Shop">
+        <div className="hero-content">
+          <div className="hero-text">
+            <h1>Welcome to <span className="brand-highlight">e-Shop</span></h1>
+            <p className="hero-subtitle">Discover amazing products at unbeatable prices</p>
+            <p className="hero-description">
+              From electronics to fashion, home essentials to lifestyle products -
+              find everything you need in one place with fast delivery and secure payments.
+            </p>
+            <div className="hero-buttons">
+              <Link to="/products" className="hero-btn primary" aria-label="Browse all products">
+                Shop Now
+              </Link>
+              <Link to="/about" className="hero-btn secondary" aria-label="Learn more about us">
+                Learn More
+              </Link>
+            </div>
+            <div className="hero-stats">
+              <div className="stat-item">
+                <span className="stat-number">50K+</span>
+                <span className="stat-label">Happy Customers</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">10K+</span>
+                <span className="stat-label">Products</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">24/7</span>
+                <span className="stat-label">Support</span>
+              </div>
+            </div>
+          </div>
+          <div className="hero-image">
+            <img
+              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
+              alt="Shopping experience"
+            />
+          </div>
         </div>
       </section>
 
@@ -40,24 +83,35 @@ export default function Home() {
       <section className="home-categories" aria-label="Shop by categories">
         <h2>Our Categories</h2>
         <div className="categories-grid">
-          <Link to="/products?category=electronics" aria-label="Shop Electronics" className="category-card">
-            <img src="https://images.unsplash.com/photo-1510552776732-03e61cf4b144?auto=format&fit=crop&w=400&q=80" alt="Electronics" />
-            <div className="category-info">
-              <h3>Electronics</h3>
-            </div>
-          </Link>
-          <Link to="/products?category=clothing" aria-label="Shop Clothing" className="category-card">
-            <img src="https://images.unsplash.com/photo-1520962918630-22804197b3a2?auto=format&fit=crop&w=400&q=80" alt="Clothing" />
-            <div className="category-info">
-              <h3>Clothing</h3>
-            </div>
-          </Link>
-          <Link to="/products?category=home-garden" aria-label="Shop Home & Garden" className="category-card">
-            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Home and garden" />
-            <div className="category-info">
-              <h3>Home & Garden</h3>
-            </div>
-          </Link>
+          {categories.length === 0 ? (
+            <p>Loading categories...</p>
+          ) : (
+            categories.map((category) => (
+              <Link
+                key={category.id}
+                to={`/products?category=${category.id}`}
+                aria-label={`Shop ${category.name}`}
+                className="category-card"
+              >
+                {category.image ? (
+                  <img
+                    src={`http://localhost:5000/uploads/${category.image}`}
+                    alt={category.name}
+                  />
+                ) : (
+                  <div className="category-placeholder">
+                    <span className="category-icon">📂</span>
+                  </div>
+                )}
+                <div className="category-info">
+                  <h3>{category.name}</h3>
+                  {category.description && (
+                    <p className="category-description">{category.description}</p>
+                  )}
+                </div>
+              </Link>
+            ))
+          )}
         </div>
       </section>
 
@@ -73,18 +127,15 @@ export default function Home() {
           {error && <p className="error-message">{error}</p>}
           {!loading && !error && products.length === 0 && <p>No products found.</p>}
 
-          {products.map(product => (
-            <Link
-              to={`/product/${product.id}`}
+          {products.map((product) => (
+            <ProductCard
               key={product.id}
-              className="product-link"
-              aria-label={`View details of ${product.name}`}
-            >
-              <ProductCard product={product} />
-            </Link>
+              product={product}
+            />
           ))}
         </div>
       </section>
+
 
       {/* Features Section */}
       <section className="home-features" aria-label="Why shop with us">
@@ -108,52 +159,123 @@ export default function Home() {
         </div>
       </section>
 
-      {/* New 3D Design Sections */}
+      {/* Enhanced Why Choose Us Section */}
+      <section className="why-choose-us-enhanced" aria-label="Why choose e-Shop">
+        <div className="section-container">
+          <div className="section-header">
+            <h2>Why Choose e-Shop?</h2>
+            <p>Experience the difference with our premium shopping platform</p>
+          </div>
 
-<section class="futuristic-section">
-  <div class="container">
-    <h2 class="section-title">Why Choose Us</h2>
-    <p class="section-subtitle">Discover the cutting-edge advantages we deliver to our customers.</p>
+          <div className="features-showcase">
+            <div className="feature-card premium">
+              <div className="feature-icon">
+                <span>🚀</span>
+              </div>
+              <h3>Lightning Fast Delivery</h3>
+              <p>Get your orders delivered within 24-48 hours with our express shipping network across the country.</p>
+              <ul className="feature-benefits">
+                <li>Same-day delivery in major cities</li>
+                <li>Real-time tracking</li>
+                <li>Free shipping on orders over $50</li>
+              </ul>
+            </div>
 
-    <div class="cards-wrapper">
-      <div class="card">
-        <div class="icon">🚀</div>
-        <h3>Innovative Technology</h3>
-        <p>We utilize the latest advancements to bring you top-quality and futuristic solutions.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🔒</div>
-        <h3>Secure & Reliable</h3>
-        <p>Our products are built with security and reliability as our top priorities.</p>
-      </div>
-      <div class="card">
-        <div class="icon">⚡</div>
-        <h3>Fast Performance</h3>
-        <p>Experience blazing speed and seamless functionality in all our offerings.</p>
-      </div>
-    </div>
+            <div className="feature-card premium">
+              <div className="feature-icon">
+                <span>🛡️</span>
+              </div>
+              <h3>100% Secure Shopping</h3>
+              <p>Shop with confidence using our bank-level security and encrypted payment processing.</p>
+              <ul className="feature-benefits">
+                <li>SSL encrypted transactions</li>
+                <li>Multiple payment options</li>
+                <li>Buyer protection guarantee</li>
+              </ul>
+            </div>
 
-    <h2 class="section-title">Benefits</h2>
-    <div class="benefits-list">
-      <div class="benefit-item">
-        <span class="benefit-icon">💡</span>
-        <p>Continuous Innovation with AI-driven enhancements.</p>
-      </div>
-      <div class="benefit-item">
-        <span class="benefit-icon">🌐</span>
-        <p>Global 24/7 Support across multiple platforms.</p>
-      </div>
-      <div class="benefit-item">
-        <span class="benefit-icon">🔋</span>
-        <p>Energy-Efficient Solutions for a greener planet.</p>
-      </div>
-      <div class="benefit-item">
-        <span class="benefit-icon">🤖</span>
-        <p>Smart Automation saves you time and effort.</p>
-      </div>
-    </div>
-  </div>
-</section>
+            <div className="feature-card premium">
+              <div className="feature-icon">
+                <span>💎</span>
+              </div>
+              <h3>Premium Quality Products</h3>
+              <p>Every product is carefully curated and quality-tested to meet our high standards.</p>
+              <ul className="feature-benefits">
+                <li>Authentic products only</li>
+                <li>Quality assurance testing</li>
+                <li>30-day return guarantee</li>
+              </ul>
+            </div>
+
+            <div className="feature-card premium">
+              <div className="feature-icon">
+                <span>🎯</span>
+              </div>
+              <h3>24/7 Customer Support</h3>
+              <p>Our dedicated support team is always ready to help you with any questions or concerns.</p>
+              <ul className="feature-benefits">
+                <li>Live chat support</li>
+                <li>Phone & email assistance</li>
+                <li>Multilingual support</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Customer Testimonials Section */}
+      <section className="testimonials-section" aria-label="Customer testimonials">
+        <div className="section-container">
+          <div className="section-header">
+            <h2>What Our Customers Say</h2>
+            <p>Don't just take our word for it - hear from our satisfied customers</p>
+          </div>
+
+          <div className="testimonials-grid">
+            <div className="testimonial-card">
+              <div className="testimonial-content">
+                <div className="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Amazing shopping experience! Fast delivery and excellent customer service. I've been shopping here for over a year and never been disappointed."</p>
+              </div>
+              <div className="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Sarah Johnson" />
+                <div className="author-info">
+                  <h4>Sarah Johnson</h4>
+                  <span>Verified Customer</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="testimonial-card">
+              <div className="testimonial-content">
+                <div className="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Great variety of products and competitive prices. The website is easy to navigate and the checkout process is smooth. Highly recommended!"</p>
+              </div>
+              <div className="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Mike Davis" />
+                <div className="author-info">
+                  <h4>Mike Davis</h4>
+                  <span>Verified Customer</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="testimonial-card">
+              <div className="testimonial-content">
+                <div className="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Outstanding quality products and lightning-fast shipping. The customer support team is incredibly helpful and responsive. Love shopping here!"</p>
+              </div>
+              <div className="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=80" alt="Emily Chen" />
+                <div className="author-info">
+                  <h4>Emily Chen</h4>
+                  <span>Verified Customer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* About Us Section */}
       <section className="about-us" aria-label="About us brief description">
@@ -169,8 +291,8 @@ export default function Home() {
               We are committed to delivering the best online shopping experience.
               Explore our story and learn why our customers keep coming back.
             </p>
-            <button 
-              className="about-us-button" 
+            <button
+              className="about-us-button"
               onClick={() => navigate('/about')}
               aria-label="Learn more about us"
             >
